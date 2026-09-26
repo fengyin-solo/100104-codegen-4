@@ -28,6 +28,39 @@ class EntryPayload(BaseModel):
     remark: str | None = None
 
 
+class StockItem(BaseModel):
+    """批量出入库时单行材料的填写内容（材料编号必填，其余按出库/入库场景使用）。"""
+
+    材料编号: str | None = None
+    id: int | None = None
+    规格型号: str | None = None
+    出库数量: int | None = None
+    入库数量: int | None = None
+    领用班组: str | None = None
+    供货单位: str | None = None
+    质量判定: str | None = None
+    拒收原因: str | None = None
+
+
+class BatchStockPayload(BaseModel):
+    """整组提交出库/入库：统一日期 + 逐行明细。"""
+
+    items: list[StockItem] = Field(default_factory=list)
+    领用日期: str | None = None
+    入库日期: str | None = None
+    remark: str | None = None
+
+
+class BatchStockResult(BaseModel):
+    """批量提交结果：成功的逐条列出，失败的逐条给出材料编号与卡住原因。"""
+
+    ok: bool
+    message: str
+    batch_no: str
+    succeeded: list[dict[str, Any]] = Field(default_factory=list)
+    failed: list[dict[str, Any]] = Field(default_factory=list)
+    rejected: list[dict[str, Any]] = Field(default_factory=list)
+
 
 class FacilityEntry(BaseModel):
     """设施明细结构。"""

@@ -30,6 +30,9 @@ class Store:
     def overview(self) -> dict[str, object]:
         modules: list[dict[str, object]] = []
         for name in self.module_names():
+            if name.endswith("_record"):
+                # 出入库流水是材料台账的附属数据，不计入业务模块看板
+                continue
             rows = self.rows(name)
             modules.append({
                 "name": name,
