@@ -28,6 +28,54 @@ class EntryPayload(BaseModel):
     remark: str | None = None
 
 
+class BatchOutboundItem(BaseModel):
+    """批量出库中的一行：按材料编号定位，规格型号用于防止不同规格被合并出库。"""
+
+    材料编号: str
+    出库数量: int | None = None
+    领用班组: str | None = None
+    规格型号: str | None = None
+
+
+class BatchOutboundPayload(BaseModel):
+    """整组出库提交：领用日期全组统一，领用班组逐条填写。"""
+
+    领用日期: str
+    items: list[BatchOutboundItem] = Field(default_factory=list)
+
+
+class BatchInboundItem(BaseModel):
+    """批量入库中的一行：质检结果为受潮、已过期的行会被拒收入库。"""
+
+    材料编号: str
+    入库数量: int | None = None
+    质检结果: str = "合格"
+
+
+class BatchInboundPayload(BaseModel):
+    """整组入库提交：入库日期全组统一，质检结果逐条判定。"""
+
+    入库日期: str
+    items: list[BatchInboundItem] = Field(default_factory=list)
+
+
+class BatchItemResult(BaseModel):
+    """批量提交里单条材料的处理结果：成功带结存，失败带卡住原因。"""
+
+    材料编号: str
+    ok: bool
+    message: str
+    结存: int | None = None
+
+
+class BatchResult(BaseModel):
+    """整组提交的汇总：逐条成功失败互不牵连，失败的可单独重试。"""
+
+    ok: bool
+    message: str
+    results: list[BatchItemResult] = Field(default_factory=list)
+
+
 
 class FacilityEntry(BaseModel):
     """设施明细结构。"""

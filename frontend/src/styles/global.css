@@ -33,3 +33,21 @@ body { margin: 0; background: #f6f8fb; color: #1f2937; }
 .link { border: none; background: none; color: var(--brand); cursor: pointer; padding: 0; }
 .page-foot { display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px; color: var(--muted); }
 .error-text { color: #b42318; }
+.ok-text { color: #067647; }
+.check-col { width: 34px; text-align: center; }
+.modal-mask { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.45); display: flex; align-items: center; justify-content: center; z-index: 50; }
+.modal-card { background: #fff; border-radius: 10px; padding: 16px 20px; width: min(920px, 94vw); max-height: 86vh; overflow: auto; }
+.modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.modal-head h3 { margin: 0; font-size: 15px; }
+.modal-tip { color: var(--muted); font-size: 12px; margin: 4px 0 10px; }
+.reject-tip { color: #b42318; margin-top: 12px; }
+.modal-date { display: inline-block; margin-bottom: 10px; }
+.modal-date span { display: block; font-size: 12px; color: var(--muted); }
+.modal-date input { border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px; font-size: 13px; }
+.modal-foot { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
+.field-input { border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px; font-size: 13px; width: 100%; }
+.num-input { width: 90px; }
+.tag-ok { color: #067647; font-size: 12px; }
+.tag-fail { color: #b42318; font-size: 12px; }
+.tag-muted { color: var(--muted); font-size: 12px; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
